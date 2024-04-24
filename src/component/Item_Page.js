@@ -13,7 +13,8 @@ const RazorpayButton = () => {
   }, []);
 
   const handleClick = async () => {
-    const response = await fetch('/payment/checkout', {
+    // console.log('handleClick');
+    const response = await fetch('http://localhost:3000/payment/checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -28,7 +29,7 @@ const RazorpayButton = () => {
       key: 'rzp_test_qjtZWtqrWfPQrH',
       amount: data.amount,
       currency: 'INR',
-      name: 'Acme Corp',
+      name: 'Ipac',
       description: 'Test Transaction',
       image: 'https://example.com/your_logo',
       order_id: data.id,
