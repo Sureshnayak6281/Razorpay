@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+
 
 const RazorpayButton = () => {
+  const[name,setname] = useState(['']);
+  const[amount,setamount] = useState(['']);
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
@@ -13,15 +16,15 @@ const RazorpayButton = () => {
   }, []);
 
   const handleClick = async () => {
-    // console.log('handleClick');
+    
     const response = await fetch('http://localhost:3000/payment/checkout', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        name: 'Gaurav Kumar',
-        amount: 50000, 
+        name: name,
+        amount: amount, 
       }),
     });
     const data = await response.json();
@@ -49,12 +52,18 @@ const RazorpayButton = () => {
 
     const rzp1 = new window.Razorpay(options);
     rzp1.open();
+    setname('');
+    setamount('');
   };
 
   return (
-    <button id="rzp-button1" onClick={handleClick}>
+    <>
+      <input type="text" value={name} onChange={(e) => setname(e.target.value)} />
+      <input type="text" value={amount} onChange={(e) => setamount(e.target.value)} />
+      <button id="rzp-button1" onClick={handleClick}>
       Pay
     </button>
+    </>
   );
 };
 
